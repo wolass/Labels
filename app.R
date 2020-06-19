@@ -12,7 +12,6 @@
 library(shinydashboard)
 #install.packages("baRcodeR")
 library(baRcodeR)
-pacman::p_load(writexl)
 source(file = "custom_create_PDF_sub.R")
 source(file = "custom_qrcode_make.R")
 
