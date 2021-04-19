@@ -157,11 +157,11 @@ server <- function(input, output) {
                               numrow = 27,
                               numcol = 10,
                               page_width = 8.283,
-                              page_height = 11.55,
+                              page_height = 11.65625,
                               width_margin = 0.183,
-                              height_margin = 0.46,
+                              height_margin = 0.53,
                               label_width = 0.683,
-                              label_height = 0.3938,
+                              label_height = 0.39,
                               x_space = 0,
                               y_space = 0.5)
       } else if(input$paper =="deep freeze: 4388")
