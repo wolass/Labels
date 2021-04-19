@@ -91,6 +91,7 @@ ui <- dashboardPage(
                                                                   "Skin biopsy"="03",
                                                                   "urine" = '04',
                                                                   "saliva" = '05',
+                                                                  "microbiome" = '05',
                                                                   'Full blood' = '06',
                                                                   'PBMC' = '07')),
         width = 6,
