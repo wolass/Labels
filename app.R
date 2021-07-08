@@ -161,7 +161,7 @@ server <- function(input, output) {
                               width_margin = 0.183,
                               height_margin = 0.53,
                               label_width = 0.683,
-                              label_height = 0.39,
+                              label_height = 0.3924537,
                               x_space = 0,
                               y_space = 0.5)
       } else if(input$paper =="deep freeze: 4388")

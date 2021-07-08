@@ -120,7 +120,7 @@ custom_create_PDF_sub <- function (user = FALSE, Labels = NULL, name = "LabelsOu
   }
   else if (type == "matrix") {
     code_vp <- grid::viewport(x = grid::unit(0.05, "npc"), 
-                              y = grid::unit(0.8, "npc"), 
+                              y = grid::unit(0.9, "npc"), 
                               width = grid::unit(0.3 *label_width, "in"), 
                               height = grid::unit(0.6 * label_height, "in"), 
                               just = c("left", "top"))
@@ -131,7 +131,7 @@ custom_create_PDF_sub <- function (user = FALSE, Labels = NULL, name = "LabelsOu
                                height = grid::unit(0.8,"npc"), 
                                just = c("left", "center"))
     sub_vp <- grid::viewport(x = grid::unit(0.05,"npc"), 
-                               y = grid::unit(0.25, "npc"), 
+                               y = grid::unit(0.32, "npc"), 
                                width = grid::unit(0.3 *label_width, "in"), 
                                height = grid::unit(0.15 *label_width, "in"),
                                just = c("left", "top"))
