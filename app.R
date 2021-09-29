@@ -81,6 +81,7 @@ ui <- dashboardPage(
     # Boxes need to be put in a row (or column)
     fluidRow(
       box(selectizeInput("project", label = "Project name",choices = c(#"Infant","Child",
+        "POC4 Allergies" = "POC4a",
         "Healthy controls" = "HeCon",
         "Food Challenge"="FoodC",
         "Venom Induced Anaphylaxis"="VIANA",
