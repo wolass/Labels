@@ -13,6 +13,7 @@ library(shinydashboard)
 #install.packages("baRcodeR")
 library(baRcodeR)
 source(file = "custom_create_PDF_sub.R")
+source(file = "custom_create_PDF_sub2.R")
 source(file = "custom_qrcode_make.R")
 
 generate_labels_per_visit <- function(proj, 
@@ -96,10 +97,10 @@ ui <- dashboardPage(
                                                                   'PBMC' = '07')),
         width = 6,
         textInput("aliquotes", label = "number of aliquotes per sample",value = "1"),
-        selectizeInput("paper", label = "Paper type",choices = c("deep freeze: 4388","movables: 10000")),
+        selectizeInput("paper", label = "Paper type",choices = c("LCRY","deep freeze: 4388","movables: 10000")),
         
           dateInput("visit_date", label = "Visit date", value = Sys.Date()),
-      textInput("row_n", label = "If reusing paper, where should we start printing? row number",value = "0")
+      textInput("row_n", label = "If reusing paper, where should we start printing? row number",value = "1")
       )
     ),
     fluidRow(
@@ -151,7 +152,7 @@ server <- function(input, output) {
                               ErrCorr = 'M',
                               Fsz = 4,
                               Across = T,
-                              ERows = as.numeric(input$row_n),
+                              ERows = as.numeric(input$row_n)-1,
                               ECols = 0,
                               trunc = F,
                               numrow = 27,
@@ -164,27 +165,50 @@ server <- function(input, output) {
                               label_height = 0.3924537,
                               x_space = 0,
                               y_space = 0.5)
-      } else if(input$paper =="deep freeze: 4388")
-      custom_create_PDF_sub(user=FALSE,
-                        Labels = labels_pat1[,],
-                        name = 'LabelsOut',
-                        type = 'matrix',
-                        ErrCorr = 'M',
-                        Fsz = 4,
-                        Across = T,
-                        ERows = as.numeric(input$row_n),
-                        ECols = 0,
-                        trunc = F,
-                        numrow = 26,
-                        numcol = 10,
-                        page_width = 8.27,
-                        page_height = 11.55,
-                        width_margin = 0.375,
-                        height_margin = 0.4,
-                        label_width = NA,
-                        label_height = NA,
-                        x_space = 0,
-                        y_space = 0.5)
+      } else if(input$paper =="deep freeze: 4388"){
+        custom_create_PDF_sub(user=FALSE,
+                              Labels = labels_pat1[,],
+                              name = 'LabelsOut',
+                              type = 'matrix',
+                              ErrCorr = 'M',
+                              Fsz = 4,
+                              Across = T,
+                              ERows = as.numeric(input$row_n)-1,
+                              ECols = 0,
+                              trunc = F,
+                              numrow = 26,
+                              numcol = 10,
+                              page_width = 8.27,
+                              page_height = 11.55,
+                              width_margin = 0.375,
+                              height_margin = 0.4,
+                              label_width = NA,
+                              label_height = NA,
+                              x_space = 0,
+                              y_space = 0.5)
+      } else if(input$paper == "LCRY"){
+        custom_create_PDF_sub2(user=FALSE,
+                               Labels = labels_pat1[,],
+                               name = 'LabelsOut',
+                               type = 'matrix',
+                               ErrCorr = 'M',
+                               Fsz = 4,
+                               Across = T,
+                               ERows = as.numeric(input$row_n)-1,
+                               ECols = 0,
+                               trunc = F,
+                               numrow = 17,
+                               numcol = 7,
+                               page_width = 8.5,
+                               page_height = 10.9,
+                               width_margin = 0.6,
+                               height_margin = 0.28,
+                               label_width = 0.8,
+                               label_height = 0.4,
+                               x_space = 0,
+                               y_space = 0.5)
+      }
+      
       cat(list.files())
       file.copy("LabelsOut.pdf",file)
     }
