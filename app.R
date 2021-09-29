@@ -16,7 +16,8 @@ source(file = "custom_create_PDF_sub.R")
 source(file = "custom_create_PDF_sub2.R")
 source(file = "custom_qrcode_make.R")
 
-generate_labels_per_visit <- function(proj, 
+generate_labels_per_visit <- function(proj,
+                                      prefix,
                                       patient,
                                       type,
                                       aliquotes,
@@ -26,7 +27,7 @@ generate_labels_per_visit <- function(proj,
                                       date){
   patients <- as.numeric(patient):as.numeric(last_patient)
   p <- stringr::str_pad(patients, width = 3,pad = "0", side = "left")
-  p <-paste0(p,".",type)
+  p <-paste0(prefix,p,".",type)
   #v <- as.character(visit_nr) # levels 10, 11, 12, 20, 30, 40, 41, 42
   static <- paste0(proj,"\n",p,"."#,ifelse(visit_type=="scheduled","V","U"),visit_nr,"."
                    ) 
@@ -74,9 +75,23 @@ ui <- dashboardPage(
       box(p("This app will help you generate labels for clinical samples."),
           p("Please provide your Project number from the list"),
           p("Please provide the patient's number (screening number), and the date the sample was acquired. Also please select the type of the sample you are gathering. The list describing the sample types can be found below."),
-          p("Note that if you are gathering HEALTHY CONTROLS - regardles of the project you should put them in the HEALTHY CONTROL project"),
-            p ("You may find the paper for printing the labels:"), 
-          a("here under this link",href= "https://www.bueromarkt-ag.de/universaletiketten_herma_4212_movables_weiss,p-4212,l-google-prd,pd-b2c.html?gclid=EAIaIQobChMI8oq1y4uB6AIVkh0YCh3CzgbVEAQYASABEgId4_D_BwE"))
+          p("Sample Description:"),
+          p("serum = 01"),
+          p("plasma = 02"),
+          p("Skin biopsy = 03"),
+          p("urine = 04"),
+          p("microbiome = 05"),
+          p("Full blood = 06"),
+          p("PBMC = 07"),
+          p("saliva = 05"),
+          hr(),
+          p ("You may find the paper for printing the labels:"), 
+          a("here under this link",href= "https://www.bueromarkt-ag.de/universaletiketten_herma_4212_movables_weiss,p-4212,l-google-prd,pd-b2c.html?gclid=EAIaIQobChMI8oq1y4uB6AIVkh0YCh3CzgbVEAQYASABEgId4_D_BwE"),
+          hr(),
+          
+          p("The sample identifier is as follows:"),
+          p("5-letter project name"), 
+          p("<Prefix><3-places-Pat.NR><Sample-Type><Aliquote NR>"))
     ),
     # Boxes need to be put in a row (or column)
     fluidRow(
@@ -86,6 +101,7 @@ ui <- dashboardPage(
         "Food Challenge"="FoodC",
         "Venom Induced Anaphylaxis"="VIANA",
         "Biologicals in Atopic Dermatitis" = "BioAD")),
+        textInput("prefix", label = "Prefix (one letter only, leave blank if not needed)",value = ""),
         textInput("patient_n", label = "First Patient number",value = "1"),
         textInput("patient_last", label = "Last Patient number",value = "1"),
         selectizeInput("type", label = "Sample type ",choices = c("serum"="01",
@@ -137,6 +153,7 @@ server <- function(input, output) {
     content = function(file){
       labels_pat1 <- generate_labels_per_visit(
       proj = input$project,
+      prefix = input$prefix,
       patient = input$patient_n,
       last_patient = input$patient_last,
       aliquotes = as.numeric(input$aliquotes),
