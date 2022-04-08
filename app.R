@@ -12,9 +12,11 @@
 library(shinydashboard)
 #install.packages("baRcodeR")
 library(baRcodeR)
+#source("qrcode_make.R")
 source(file = "custom_create_PDF_sub.R")
 source(file = "custom_create_PDF_sub2.R")
 source(file = "custom_qrcode_make.R")
+
 
 generate_labels_per_visit <- function(proj,
                                       prefix,
@@ -77,7 +79,7 @@ ui <- dashboardPage(
         "Anaphylaxie Register Medikamente" = "AnaMe",
         "Venom Induced Anaphylaxis"="VIANA",
         "Biologicals in Atopic Dermatitis" = "BioAD",
-        "ErdHase-Alphi" = "EHAlp")),
+        "ErdHase-ALPHI" = "ALPHi")),
         textInput("prefix", label = "Prefix (one letter only, leave blank if not needed)",value = ""),
         textInput("patient_n", label = "First Patient number",value = "1"),
         textInput("patient_last", label = "Last Patient number",value = "1"),
