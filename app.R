@@ -81,7 +81,7 @@ ui <- dashboardPage(
         "Biologicals in Atopic Dermatitis" = "BioAD",
         "ErdHase-ALPHI" = "ALPHi",
         "Notarzt-Projekt 2" = "AnaER",
-        "WAB Projekt" = "WAB-A")),
+        "WAB Projekt" = "WAB_A")),
         textInput("prefix", label = "Prefix (one letter only, leave blank if not needed)",value = ""),
         textInput("patient_n", label = "First Patient number",value = "1"),
         textInput("patient_last", label = "Last Patient number",value = "1"),
