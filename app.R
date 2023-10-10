@@ -82,7 +82,7 @@ ui <- dashboardPage(
         "ErdHase-ALPHI" = "ALPHi",
         "Notarzt-Projekt 2" = "AnaER",
         "WAB Projekt" = "WABai",
-        "PIZZA Projekt" = "PIZZA")),
+        "PIZZA Projekt" = "Pizza")),
         textInput("prefix", label = "Prefix (one letter only, leave blank if not needed)",value = ""),
         textInput("patient_n", label = "First Patient number",value = "1"),
         textInput("patient_last", label = "Last Patient number",value = "1"),
@@ -113,8 +113,6 @@ ui <- dashboardPage(
 )
 
 server <- function(input, output) {
-  
-  
   output$downloadLabels <- downloadHandler(
     filename = function(){
       paste0("labels-",input$patient_n,".pdf")
